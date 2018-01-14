@@ -1,14 +1,14 @@
 # this code is for making a GUI for front end of the book store applications
 
 from tkinter import *
-import backend_code
+import backend_code  # for using the database manipulation functions defined in backend_code file
 
 
-
+# this function is used to store the selected entry in a variable and also to display the values of that entry in their respective places
 def get_selected_row(event):
 	try:
-		global selected_tuple
-		index=list1.curselection()[0]
+		global selected_tuple  # so that other functions can also use the value of selected entry
+		index=list1.curselection()[0]  # to get the index of the selected entry
 		selected_tuple=list1.get(index)
 		e1.delete(0,END)
 		e1.insert(END,selected_tuple[1])
@@ -43,7 +43,7 @@ def add_command():
 
 
 def delete_command():
-	backend_code.delete(selected_tuple[0])
+	backend_code.delete(selected_tuple[0]) # to pass the id of the row which we want to delete
 
 
 def update_command():
@@ -54,10 +54,10 @@ def update_command():
 
 window=Tk()
 
-window.wm_title('Booklist')
+window.wm_title('Booklist')  # for assigning a title to our GUI app
 
 l1=Label(window,text='Title')
-l1.grid(row=0,column=0)
+l1.grid(row=0,column=0)  # pack method can also be used, but grid provides more control
 
 l2=Label(window,text='Author')
 l2.grid(row=0,column=2)
@@ -87,13 +87,13 @@ e4.grid(row=1,column=3)
 list1=Listbox(window,height=8,width=24)
 list1.grid(row=2,column=0,rowspan=8,columnspan=2)
 
-sb1=Scrollbar(window)
+sb1=Scrollbar(window)     # for adding a scroll bar 
 sb1.grid(row=2,column=2,rowspan=8)
 
-list1.configure(yscrollcommand=sb1.set)
+list1.configure(yscrollcommand=sb1.set)  # for connecting the list box and scroll bar together so that they can work in sync
 sb1.configure(command=list1.yview)
 
-list1.bind('<<ListboxSelect>>',get_selected_row)
+list1.bind('<<ListboxSelect>>',get_selected_row)   
 
 b1=Button(window,text='View All',width=12,command=view_command)
 b1.grid(row=2,column=3)
@@ -110,7 +110,7 @@ b4.grid(row=5,column=3)
 b5=Button(window,text='Delete',width=12,command=delete_command)
 b5.grid(row=6,column=3)
 
-b6=Button(window,text='Close',width=12,command=window.destroy)
+b6=Button(window,text='Close',width=12,command=window.destroy)  # for closing our GUI app
 b6.grid(row=7,column=3)
 
 window.mainloop()
