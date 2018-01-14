@@ -1,3 +1,5 @@
+# this file contains all the essential functions for creating and manipulating the database.
+
 import sqlite3
 
 def create_table():
@@ -11,7 +13,7 @@ def create_table():
 def add_entry(title, author, year, isbn):
 	conn=sqlite3.connect('books.db')
 	cur=conn.cursor()
-	cur.execute('INSERT INTO book VALUES (NULL,?,?,?,?)',(title,author,year,isbn))
+	cur.execute('INSERT INTO book VALUES (NULL,?,?,?,?)',(title,author,year,isbn)) # NULL so that python itself will update the id everytime we make a new entry
 	conn.commit()
 	conn.close()
 	view()
@@ -26,10 +28,10 @@ def view_all():
 	return rows
 
 
-def search_entry(title='', author='', year='', isbn=''):
+def search_entry(title='', author='', year='', isbn=''): # default '' is passed to all arguments
 	conn=sqlite3.connect('books.db')
 	cur=conn.cursor()
-	cur.execute('SELECT * FROM book WHERE Title=? OR Author=? OR Year=? OR ISBN=?',(title, author, year, isbn))
+	cur.execute('SELECT * FROM book WHERE Title=? OR Author=? OR Year=? OR ISBN=?',(title, author, year, isbn)) #remember to give the variables in the same order as mentioned in your query
 	rows=cur.fetchall()
 	conn.close()
 	return rows
@@ -46,7 +48,7 @@ def update(id, title, author, year, isbn):
 def delete(id):
 	conn=sqlite3.connect('books.db')
 	cur=conn.cursor()
-	cur.execute('DELETE FROM book WHERE id=?',(id,))
+	cur.execute('DELETE FROM book WHERE id=?',(id,))  # don't forget to place a comma after id
 	conn.commit()
 	conn.close()
 
